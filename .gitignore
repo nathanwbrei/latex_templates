@@ -1,0 +1,14 @@
+*.out
+*.snm
+*.gz
+*.log
+*.nav
+*.toc
+*.vrb
+*.pdf
+*.pygtex
+*.pygstyle
+.DS_Store
+
+
+
