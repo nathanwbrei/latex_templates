@@ -1,0 +1,212 @@
+%% ---------------------------------------------------------------------------
+%% Jefferson Lab beamer theme
+%%
+%% Based on the Metropolis theme by Matthias Vogelgesang and others:
+%%     https://github.com/matze/mtheme/
+%% Modified by Max Bruker to resemble the Jefferson Lab WeakPoint template.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pgfplotsthemetol}
+    [2017/01/23 PGFplots colors based on Paul Tol's SRON technical note]
+\definecolor{TolDarkPurple}{HTML}{332288}
+\definecolor{TolDarkBlue}{HTML}{6699CC}
+\definecolor{TolLightBlue}{HTML}{88CCEE}
+\definecolor{TolLightGreen}{HTML}{44AA99}
+\definecolor{TolDarkGreen}{HTML}{117733}
+\definecolor{TolDarkBrown}{HTML}{999933}
+\definecolor{TolLightBrown}{HTML}{DDCC77}
+\definecolor{TolDarkRed}{HTML}{661100}
+\definecolor{TolLightRed}{HTML}{CC6677}
+\definecolor{TolLightPink}{HTML}{AA4466}
+\definecolor{TolDarkPink}{HTML}{882255}
+\definecolor{TolLightPurple}{HTML}{AA4499}
+\pgfplotscreateplotcyclelist{mbarplot cycle}{%
+  {draw=TolDarkBlue,    fill=TolDarkBlue!70},
+  {draw=TolLightBrown,  fill=TolLightBrown!70},
+  {draw=TolLightGreen,  fill=TolLightGreen!70},
+  {draw=TolDarkPink,    fill=TolDarkPink!70},
+  {draw=TolDarkPurple,  fill=TolDarkPurple!70},
+  {draw=TolDarkRed,     fill=TolDarkRed!70},
+  {draw=TolDarkBrown,   fill=TolDarkBrown!70},
+  {draw=TolLightRed,    fill=TolLightRed!70},
+  {draw=TolLightPink,   fill=TolLightPink!70},
+  {draw=TolLightPurple, fill=TolLightPurple!70},
+  {draw=TolLightBlue,   fill=TolLightBlue!70},
+  {draw=TolDarkGreen,   fill=TolDarkGreen!70},
+}
+\pgfplotscreateplotcyclelist{mlineplot cycle}{%
+  {TolDarkBlue, mark=*, mark size=1.5pt},
+  {TolLightBrown, mark=square*, mark size=1.3pt},
+  {TolLightGreen, mark=triangle*, mark size=1.5pt},
+  {TolDarkBrown, mark=diamond*, mark size=1.5pt},
+}
+\definecolor{TolBright1}{HTML}{4477aa}
+\definecolor{TolBright2}{HTML}{66ccee}
+\definecolor{TolBright3}{HTML}{228833}
+\definecolor{TolBright4}{HTML}{ccbb44}
+\definecolor{TolBright5}{HTML}{ee6677}
+\definecolor{TolBright6}{HTML}{aa3377}
+\definecolor{TolBright7}{HTML}{bbbbbb}
+\pgfplotscreateplotcyclelist{tolbright cycle}{%
+  {TolBright1, mark=*, mark size=1.5pt},
+  {TolBright5, mark=square*, mark size=1.3pt},
+  {TolBright3, mark=triangle*, mark size=1.5pt},
+  {TolBright4, mark=diamond*, mark size=1.5pt},
+  {TolBright2, mark=*, mark size=1.5pt},
+  {TolBright6, mark=square*, mark size=1.5pt},
+  {TolBright7, mark=triangle*, mark size=1.5pt},
+}
+
+\definecolor{TolContrast1}{HTML}{ddaa33}
+\definecolor{TolContrast2}{HTML}{bb5566}
+\definecolor{TolContrast3}{HTML}{004488}
+\pgfplotscreateplotcyclelist{tolcontrast cycle}{%
+  {TolContrast3, mark=*, mark size=1.5pt},
+  {TolContrast1, mark=square*, mark size=1.3pt},
+  {TolContrast2, mark=triangle*, mark size=1.5pt},
+}
+
+\definecolor{TolRainbow_01}{HTML}{E8ECFB}
+\definecolor{TolRainbow_02}{HTML}{D9CCE3}
+\definecolor{TolRainbow_03}{HTML}{D1BBD7}
+\definecolor{TolRainbow_04}{HTML}{CAACCB}
+\definecolor{TolRainbow_05}{HTML}{BA8DB4}
+\definecolor{TolRainbow_06}{HTML}{AE76A3}
+\definecolor{TolRainbow_07}{HTML}{AA6F9E}
+\definecolor{TolRainbow_08}{HTML}{994F88}
+\definecolor{TolRainbow_09}{HTML}{882E72}
+\definecolor{TolRainbow_10}{HTML}{1965B0}
+\definecolor{TolRainbow_11}{HTML}{437DBF}
+\definecolor{TolRainbow_12}{HTML}{5289C7}
+\definecolor{TolRainbow_13}{HTML}{6195CF}
+\definecolor{TolRainbow_14}{HTML}{7BAFDE}
+\definecolor{TolRainbow_15}{HTML}{4EB265}
+\definecolor{TolRainbow_16}{HTML}{90C987}
+\definecolor{TolRainbow_17}{HTML}{CAE0AB}
+\definecolor{TolRainbow_18}{HTML}{F7F056}
+\definecolor{TolRainbow_19}{HTML}{F7CB45}
+\definecolor{TolRainbow_20}{HTML}{F6C141}
+\definecolor{TolRainbow_21}{HTML}{F4A736}
+\definecolor{TolRainbow_22}{HTML}{F1932D}
+\definecolor{TolRainbow_23}{HTML}{EE8026}
+\definecolor{TolRainbow_24}{HTML}{E8601C}
+\definecolor{TolRainbow_25}{HTML}{E65518}
+\definecolor{TolRainbow_26}{HTML}{DC050C}
+\definecolor{TolRainbow_27}{HTML}{A5170E}
+\definecolor{TolRainbow_28}{HTML}{72190E}
+
+% from Fig. 20 in "Sequential color schemes" by Tol
+\pgfplotscreateplotcyclelist{TolRainbow7 cycle}{%
+  {TolRainbow_09},
+  {TolRainbow_10},
+  {TolRainbow_14},
+  {TolRainbow_15},
+  {TolRainbow_17},
+  {TolRainbow_18},
+  {TolRainbow_26},
+}
+
+\pgfplotscreateplotcyclelist{TolRainbow20 cycle}{%
+  {TolRainbow_02},
+  {TolRainbow_04},
+  {TolRainbow_05},
+  {TolRainbow_07},
+  {TolRainbow_08},
+  {TolRainbow_09},
+  {TolRainbow_10},
+  {TolRainbow_11},
+  {TolRainbow_13},
+  {TolRainbow_14},
+  {TolRainbow_15},
+  {TolRainbow_16},
+  {TolRainbow_17},
+  {TolRainbow_18},
+  {TolRainbow_20},
+  {TolRainbow_22},
+  {TolRainbow_24},
+  {TolRainbow_26},
+  {TolRainbow_27},
+  {TolRainbow_28},
+}
+
+\definecolor{tolmint}{HTML}{44bb99}
+\definecolor{tolpear}{HTML}{bbcc33}
+\definecolor{tololive}{HTML}{aaaa00}
+\definecolor{tolyellow}{HTML}{eedd88}
+\definecolor{tolorange}{HTML}{ee8866}
+\definecolor{tolpink}{HTML}{FFAABB}
+\definecolor{tolcyan}{HTML}{99ddff}
+
+\pgfplotsset{
+  compat=1.13,
+  mlineplot/.style={
+    mbaseplot,
+    xmajorgrids=true,
+    ymajorgrids=true,
+    major grid style={dotted},
+%    axis x line=bottom,
+%    axis y line=left,
+    legend style={
+      cells={anchor=west},
+%      draw=none
+    },
+    cycle list name=mlineplot cycle,
+  },
+  mbarplot base/.style={
+    mbaseplot,
+    bar width=6pt,
+    axis y line*=none,
+  },
+  mbarplot/.style={
+    mbarplot base,
+    ybar,
+    xmajorgrids=false,
+    ymajorgrids=true,
+    area legend,
+    legend image code/.code={%
+      \draw[#1] (0cm,-0.1cm) rectangle (0.15cm,0.1cm);
+    },
+    cycle list name=mbarplot cycle,
+  },
+  horizontal mbarplot/.style={
+    mbarplot base,
+    xmajorgrids=true,
+    ymajorgrids=false,
+    xbar stacked,
+    area legend,
+    legend image code/.code={%
+      \draw[#1] (0cm,-0.1cm) rectangle (0.15cm,0.1cm);
+    },
+    cycle list name=mbarplot cycle,
+  },
+  mbaseplot/.style={
+    legend style={
+%      draw=none,
+%      fill=none,
+      cells={anchor=west},
+    },
+    x tick label style={
+      font=\footnotesize
+    },
+    y tick label style={
+      font=\footnotesize
+    },
+    legend style={
+      font=\footnotesize
+    },
+    major grid style={
+      dotted,
+    },
+%    axis x line*=bottom,
+  },
+  disable thousands separator/.style={
+    /pgf/number format/.cd,
+      1000 sep={}
+  },
+}
+\endinput
+%%
+%% End of file `pgfplotsthemetol.sty'.

@@ -1,0 +1,140 @@
+%% ---------------------------------------------------------------------------
+%% Jefferson Lab beamer theme
+%%
+%% Based on the Metropolis theme by Matthias Vogelgesang and others:
+%%     https://github.com/matze/mtheme/
+%% Modified by Max Bruker to resemble the Jefferson Lab WeakPoint template.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemejlab}[2022/02/08 JLab outer theme]
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /jlab/outer/numbering/.cd,
+    .is choice,
+    none/.code=\setbeamertemplate{frame numbering}[none],
+    counter/.code=\setbeamertemplate{frame numbering}[counter],
+    fraction/.code=\setbeamertemplate{frame numbering}[fraction],
+}
+\pgfkeys{
+  /jlab/outer/progressbar/.cd,
+    .is choice,
+    none/.code={%
+      \setbeamertemplate{headline}[plain]
+      \setbeamertemplate{frametitle}[plain]
+      \setbeamertemplate{footline}[plain]
+    },
+    head/.code={\pgfkeys{/jlab/outer/progressbar=none}
+      \addtobeamertemplate{headline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    frametitle/.code={\pgfkeys{/jlab/outer/progressbar=none}
+      \addtobeamertemplate{frametitle}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    foot/.code={\pgfkeys{/jlab/outer/progressbar=none}
+      \addtobeamertemplate{footline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}%
+      }
+    },
+}
+\newcommand{\jlab@outer@setdefaults}{
+  \pgfkeys{/jlab/outer/.cd,
+    numbering=counter,
+    progressbar=none,
+  }
+}
+\setbeamertemplate{navigation symbols}{}
+%\defbeamertemplate{frame footer}{none}{}
+%\defbeamertemplate{frame footer}{custom}[1]{ #1 }
+%\defbeamertemplate{frame numbering}{none}{}
+%\defbeamertemplate{frame numbering}{counter}{\insertframenumber}
+%\defbeamertemplate{frame numbering}{fraction}{
+%  \insertframenumber/\inserttotalframenumber
+%}
+\defbeamertemplate{headline}{plain}{}
+\defbeamertemplate{footline}{plain}{%
+  \begin{beamercolorbox}[wd=\textwidth, sep=1ex, leftskip=1em, rightskip=1em, center]{footline}%
+    \usebeamerfont{page number in head/foot}%
+    \begin{columns}[onlytextwidth]
+    \begin{column}[c]{.5\textwidth}
+    \hskip1em\insertframenumber
+%    \usebeamertemplate*{frame numbering}
+    \end{column}
+    \begin{column}[c]{.5\textwidth}\hfill
+%    \hfill%
+\ifbool{jlab@standout}{}{\includegraphics[width=49.5pt]{logos/JLab_logo_white.pdf}}%
+\hspace*{1em}%
+%    \end{flushright}
+    \end{column}
+    \end{columns}
+  \end{beamercolorbox}%
+}
+\newlength{\jlab@frametitle@padding}
+\setlength{\jlab@frametitle@padding}{1.5ex}
+\newcommand{\jlab@frametitlestrut@start}{
+  \rule{0pt}{\jlab@frametitle@padding +%
+    \totalheightof{%
+      \ifcsdef{jlab@frametitleformat}{\jlab@frametitleformat X}{X}%
+    }%
+  }%
+}
+\newcommand{\jlab@frametitlestrut@end}{
+  \rule[-\jlab@frametitle@padding]{0pt}{\jlab@frametitle@padding}
+}
+\defbeamertemplate{frametitle}{plain}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,%
+      sep=0pt,%
+      leftskip=2.2ex,%\jlab@frametitle@padding,%
+      rightskip=2.2ex%\jlab@frametitle@padding,%
+    ]{frametitle}%
+  \jlab@frametitlestrut@start%
+  \insertframetitle%
+  \nolinebreak%
+  \jlab@frametitlestrut@end%
+  \end{beamercolorbox}%
+\vskip-7.5pt%
+\usebeamertemplate*{title separator}
+}
+\setbeamertemplate{frametitle continuation}{%
+  \usebeamerfont{frametitle}
+  \romannumeral \insertcontinuationcount
+}
+\newlength{\jlab@progressinheadfoot}
+\newlength{\jlab@progressinheadfoot@linewidth}
+\setlength{\jlab@progressinheadfoot@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in head/foot}{
+  \nointerlineskip
+  \setlength{\jlab@progressinheadfoot}{%
+    \paperwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \begin{beamercolorbox}[wd=\paperwidth]{progress bar in head/foot}
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+      \fill[bg] (0,0) rectangle (\paperwidth, \jlab@progressinheadfoot@linewidth);
+      \fill[fg] (0,0) rectangle (\jlab@progressinheadfoot, \jlab@progressinheadfoot@linewidth);
+    \end{tikzpicture}%
+    \tikzexternalenable%
+  \end{beamercolorbox}
+}
+\AtBeginDocument{%
+  \apptocmd{\appendix}{%
+    \pgfkeys{%
+      /jlab/outer/.cd,
+      numbering=none,
+      progressbar=none}
+    }{}{}
+}
+\jlab@outer@setdefaults
+\ProcessPgfPackageOptions{/jlab/outer}
+\endinput
+%%
+%% End of file `beamerouterthemejlab.sty'.

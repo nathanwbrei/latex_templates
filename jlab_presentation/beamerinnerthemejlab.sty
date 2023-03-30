@@ -1,0 +1,294 @@
+%% ---------------------------------------------------------------------------
+%% Jefferson Lab beamer theme
+%%
+%% Based on the Metropolis theme by Matthias Vogelgesang and others:
+%%     https://github.com/matze/mtheme/
+%% Modified by Max Bruker to resemble the Jefferson Lab WeakPoint template.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemejlab}[2022/02/08 JLab inner theme]
+\RequirePackage{etoolbox}
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+\newcommand{\logoboxheight}{18pt}
+\pgfkeys{
+  /jlab/inner/sectionpage/.cd,
+    .is choice,
+    none/.code=\jlab@disablesectionpage,
+    simple/.code={\jlab@enablesectionpage
+                  \setbeamertemplate{section page}[simple]},
+    progressbar/.code={\jlab@enablesectionpage
+                       \setbeamertemplate{section page}[progressbar]},
+}
+\pgfkeys{
+  /jlab/inner/subsectionpage/.cd,
+    .is choice,
+    none/.code=\jlab@disablesubsectionpage,
+    simple/.code={\jlab@enablesubsectionpage
+                  \setbeamertemplate{section page}[simple]},
+    progressbar/.code={\jlab@enablesubsectionpage
+                       \setbeamertemplate{section page}[progressbar]},
+}
+\newcommand{\jlab@inner@setdefaults}{
+  \pgfkeys{/jlab/inner/.cd,
+    sectionpage=progressbar,
+    subsectionpage=none
+  }
+}
+\setbeamertemplate{title page}{
+\begin{tikzpicture}[remember picture, overlay]
+\node[anchor=south west, inner sep=0, outer sep=0] at (current page.south west) {\includegraphics[height=5cm]{logos/quarks.png}};
+\end{tikzpicture}
+\begin{minipage}[b][\paperheight]{\textwidth}
+%\nointerlineskip%
+\begin{beamercolorbox}[%
+      wd=\paperwidth,
+      ht=45pt,
+      sep=0pt,
+      leftskip=2.2ex,%\jlab@frametitle@padding,%
+      rightskip=2.2ex,%\jlab@frametitle@padding,%
+    ]{titlelike}%
+\usebeamerfont{title}%
+%  \jlab@frametitlestrut@start%
+\inserttitle
+\vspace{0.5ex}
+%\ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+%  \nolinebreak%
+%  \jlab@frametitlestrut@end%
+\end{beamercolorbox}%
+\vskip-15pt%
+\usebeamertemplate*{title separator}
+
+\begin{columns}[onlytextwidth]
+\begin{column}{.5\textwidth}
+\vskip10pt
+\usebeamerfont{author}\insertauthor\\
+\insertinstitute\\[3ex]
+\usebeamerfont{date}\insertdate
+\end{column}
+\begin{column}{.5\textwidth}\centering
+\inserttitlegraphic
+\end{column}
+\end{columns}
+\vfill
+\begin{columns}[onlytextwidth]
+\begin{column}{.5\linewidth}
+%\begin{beamercolorbox}[wd=\textwidth, ht=\logoboxheight]{title page logo box}%
+\vbox to\logoboxheight{\vfil\includegraphics[width=67pt]{logos/JLab_logo_white.pdf}\vfil}%
+%\end{beamercolorbox}%
+\end{column}
+\begin{column}{.5\linewidth}
+\begin{beamercolorbox}[wd=\textwidth, ht=\logoboxheight, right]{title page logo box}%
+\vbox to\logoboxheight{\vfil\includegraphics[width=64pt, trim={0 65pt 0 65pt}, clip]{logos/CMYK_Color-Seal_Green-Mark_SC_Horizontal.pdf}\quad\includegraphics[width=19pt, trim={0 10pt 0 10pt}, clip]{logos/jsaLogo.pdf}\vfil}%
+\end{beamercolorbox}%
+\end{column}
+\end{columns}
+\vspace*{3mm}%
+  \end{minipage}
+}
+\def\maketitle{%
+  \ifbeamer@inframe
+    \titlepage
+  \else
+    \frame[plain,noframenumbering]{\titlepage}
+  \fi
+}
+\def\titlepage{%
+  \usebeamertemplate{title page}
+}
+\newlength{\jlab@titleseparator@linewidth}
+\setlength{\jlab@titleseparator@linewidth}{2.3pt}
+\setbeamertemplate{title separator}{%
+\begin{beamercolorbox}[wd=\paperwidth,sep=0pt,ht=2.4pt]{title separator}%
+\end{beamercolorbox}%
+%  \tikzexternaldisable%
+%  \begin{tikzpicture}
+%    \fill[fg] (0,0) rectangle (\pagewidth, \jlab@titleseparator@linewidth);
+%  \end{tikzpicture}%
+%  \tikzexternalenable%
+%  \par%
+}
+\defbeamertemplate{section page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\par
+    \ifx\insertsubsectionhead\@empty\else
+      \usebeamercolor[fg]{subsection title}
+      \usebeamerfont{subsection title}
+      \insertsubsectionhead
+    \fi
+  \end{center}
+}
+\defbeamertemplate{section page}{progressbar}{
+  \centering
+  \begin{minipage}{22em}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\\[-1ex]
+    \usebeamertemplate*{progress bar in section page}
+    \par
+    \ifx\insertsubsectionhead\@empty\else%
+      \usebeamercolor[fg]{subsection title}%
+      \usebeamerfont{subsection title}%
+      \insertsubsectionhead
+    \fi
+  \end{minipage}
+  \par
+  \vspace{\baselineskip}
+}
+\newcommand{\jlab@disablesectionpage}{
+  \AtBeginSection{
+    % intentionally empty
+  }
+}
+\newcommand{\jlab@enablesectionpage}{
+  \AtBeginSection{
+    \ifbeamer@inframe
+      \sectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+  }
+}
+\setbeamertemplate{subsection page}{%
+  \usebeamertemplate*{section page}
+}
+\newcommand{\jlab@disablesubsectionpage}{
+  \AtBeginSubsection{
+    % intentionally empty
+  }
+}
+\newcommand{\jlab@enablesubsectionpage}{
+  \AtBeginSubsection{
+    \ifbeamer@inframe
+      \subsectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\subsectionpage}
+    \fi
+  }
+}
+\newlength{\jlab@progressonsectionpage}
+\newlength{\jlab@progressonsectionpage@linewidth}
+\setlength{\jlab@progressonsectionpage@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in section page}{
+  \setlength{\jlab@progressonsectionpage}{%
+    \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \tikzexternaldisable%
+  \begin{tikzpicture}
+    \fill[bg] (0,0) rectangle (\textwidth, \jlab@progressonsectionpage@linewidth);
+    \fill[fg] (0,0) rectangle (\jlab@progressonsectionpage, \jlab@progressonsectionpage@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+}
+\def\inserttotalframenumber{100}
+\newlength{\jlab@blocksep}
+\newlength{\jlab@blockadjust}
+\setlength{\jlab@blocksep}{0.75ex}
+\setlength{\jlab@blockadjust}{0.25ex}
+\providecommand{\jlab@strut}{%
+  \vphantom{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()}%
+}
+\newcommand{\jlab@block}[1]{
+  \par\vskip\medskipamount%
+  \setlength{\parskip}{0pt}
+  \ifbeamercolorempty[bg]{block title#1}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}}{%
+  \ifbeamercolorempty[bg]{block title}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}%
+  }%
+  {%
+    \begin{beamercolorbox}[
+      sep=\dimexpr\jlab@blocksep-\jlab@blockadjust\relax,
+      leftskip=\jlab@blockadjust,
+      rightskip=\dimexpr\jlab@blockadjust plus 4em\relax
+    ]{block title#1}%
+  }}%
+      \usebeamerfont*{block title#1}%
+      \jlab@strut%
+      \insertblocktitle%
+      \jlab@strut%
+  \end{beamercolorbox}%
+  \nointerlineskip%
+  \ifbeamercolorempty[bg]{block body#1}{%
+    \begin{beamercolorbox}[vmode]{block body#1}}{
+  \ifbeamercolorempty[bg]{block body}{%
+    \begin{beamercolorbox}[vmode]{block body#1}%
+  }{%
+    \begin{beamercolorbox}[sep=\jlab@blocksep, vmode]{block body#1}%
+    \vspace{-\jlab@parskip}
+  }}%
+      \usebeamerfont{block body#1}%
+      \setlength{\parskip}{\jlab@parskip}%
+}
+\setbeamertemplate{block begin}{\jlab@block{}}
+\setbeamertemplate{block alerted begin}{\jlab@block{ alerted}}
+\setbeamertemplate{block example begin}{\jlab@block{ example}}
+\setbeamertemplate{block end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block alerted end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block example end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{itemize items}{\textbullet}
+\setbeamertemplate{caption label separator}{: }
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{footnote}{%
+  \parindent 0em\noindent%
+  \raggedright
+  \usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+}
+\newlength{\jlab@parskip}
+\setlength{\jlab@parskip}{0.5em}
+\setlength{\parskip}{\jlab@parskip}
+\linespread{1.15}
+\define@key{beamerframe}{c}[true]{% centered
+  \beamer@frametopskip=0pt plus 1fill\relax%
+  \beamer@framebottomskip=0pt plus 1fill\relax%
+  \beamer@frametopskipautobreak=0pt plus .4\paperheight\relax%
+  \beamer@framebottomskipautobreak=0pt plus .6\paperheight\relax%
+  \def\beamer@initfirstlineunskip{}%
+}
+\providebool{jlab@standout}
+\define@key{beamerframe}{standout}[true]{%
+  \booltrue{jlab@standout}
+  \begingroup
+    \setkeys{beamerframe}{c}
+    \setkeys{beamerframe}{noframenumbering}
+    \ifbeamercolorempty[bg]{palette primary}{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=-palette primary.fg
+      }
+    }{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=palette primary.bg
+      }
+    }
+    \setbeamercolor{local structure}{
+      fg=palette primary.fg
+    }
+    \usebeamercolor[fg]{palette primary}
+}
+  \pretocmd{\beamer@reseteecodes}{%
+    \ifbool{jlab@standout}{
+      \endgroup
+      \boolfalse{jlab@standout}
+    }{}
+  }{}{}
+  \AtBeginEnvironment{beamer@frameslide}{
+    \ifbool{jlab@standout}{
+      \centering
+      \usebeamerfont{standout}
+    }{}
+  }
+\jlab@inner@setdefaults
+\ProcessPgfPackageOptions{/jlab/inner}
+\endinput
+%%
+%% End of file `beamerinnerthemejlab.sty'.

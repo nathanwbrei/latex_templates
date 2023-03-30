@@ -5,7 +5,8 @@
 *.nav
 *.toc
 *.vrb
-*.pdf
+*.aux
+main.pdf
 *.pygtex
 *.pygstyle
 .DS_Store

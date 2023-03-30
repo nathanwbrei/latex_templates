@@ -1,0 +1,59 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{pgfplots}
+\usetheme{jlab}
+\usepackage{siunitx}
+\usepackage{csquotes}
+\sisetup{range-phrase=--}
+\sisetup{range-units=single}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc, shapes, decorations.pathmorphing, positioning, arrows, arrows.meta, external}
+\usepgfplotslibrary{groupplots, statistics}
+\usepackage{xcolor}
+\usepackage[siunitx]{circuitikz}
+\usepackage{amsmath}
+
+%%% Enable this if many TikZ figures are included to speed up the compilation.
+%%% Needs -shell-escape or a similar command line option.
+%%% If this is used, be sure to prefix every figure with: \tikzsetnextfilename{...}
+%\tikzexternalize[prefix=tikz/]
+
+%%% Recommended reference manuals:
+%%% PGF/TikZ: https://pgf-tikz.github.io/pgf/pgfmanual.pdf
+%%% pgfplots: http://pgfplots.sourceforge.net/pgfplots.pdf
+%%% siunitx: http://mirrors.ctan.org/macros/latex/contrib/siunitx/siunitx.pdf
+
+\title{JANA \& PODIO Integration:\\Status update}
+\author{Nathan Brei (\texttt{nbrei@jlab.org})}
+\date{ePIC Software Meeting\\\today}
+\institute{Jefferson Lab}
+\titlegraphic{
+\vskip 0.5cm
+\includegraphics[width=0.5\paperwidth]{jana_splash.png}
+%\begin{tikzpicture}[]
+%\draw[fill=green!10!white] (-2, -2) rectangle (2, 2);
+%\draw (0, 0) node {Your ad here};
+%\end{tikzpicture}
+}
+
+\begin{document}
+\begin{frame}[plain]
+    \maketitle
+\end{frame}
+
+\begin{frame}{Next steps}
+\begin{block}{Update EICrecon dependency to use new JANA release}
+\begin{itemize}
+    \item We should set USE\_PODIO=On
+    \item This will pull in all of the PODIO features but not make them mandatory
+    \item The existing EICrecon PODIO code should continue to run, so this change should be transparent to the end users
+    \item This involves PRs to eic-spack and eic-container
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[standout]
+Thank you! That is all.
+\end{frame}
+
+\end{document}

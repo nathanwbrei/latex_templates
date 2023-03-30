@@ -1,0 +1,139 @@
+%% ---------------------------------------------------------------------------
+%% Jefferson Lab beamer theme
+%%
+%% Based on the Metropolis theme by Matthias Vogelgesang and others:
+%%     https://github.com/matze/mtheme/
+%% Modified by Max Bruker to resemble the Jefferson Lab WeakPoint template.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemejlab}[2017/01/23 Metropolis color theme]
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /jlab/color/block/.cd,
+    .is choice,
+    transparent/.code=\jlab@block@transparent,
+    fill/.code=\jlab@block@fill,
+}
+\pgfkeys{
+  /jlab/color/background/.cd,
+    .is choice,
+    dark/.code=\jlab@colors@dark,
+    light/.code=\jlab@colors@light,
+}
+\newcommand{\jlab@color@setdefaults}{
+  \pgfkeys{/jlab/color/.cd,
+    background=light,
+    block=transparent,
+  }
+}
+\definecolor{mDarkBrown}{HTML}{604c38}
+\definecolor{mDarkTeal}{HTML}{23373b}
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mLightGreen}{HTML}{14B03D}
+
+\definecolor{jlabGray}{HTML}{E6E7E8}
+\definecolor{jlabRedBar}{HTML}{C42032}
+
+\newcommand{\jlab@colors@dark}{
+  \setbeamercolor{normal text}{%
+    fg=black!2,
+    bg=mDarkTeal
+  }
+  \usebeamercolor[fg]{normal text}
+}
+\newcommand{\jlab@colors@light}{
+  \setbeamercolor{normal text}{%
+    fg=mDarkTeal,
+    bg=black!2
+  }
+}
+\setbeamercolor{alerted text}{%
+  fg=mLightBrown
+}
+\setbeamercolor{example text}{%
+  fg=mLightGreen
+}
+\setbeamercolor{titlelike}{use=normal text, parent=normal text, bg=jlabGray}
+\setbeamercolor{author}{use=normal text, parent=normal text}
+\setbeamercolor{date}{use=normal text, parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+\setbeamercolor{palette primary}{%
+  use=normal text,
+  fg=normal text.bg,
+  bg=normal text.fg
+}
+\setbeamercolor{frametitle}{%
+  use=palette primary,
+  fg=normal text.fg,
+  bg=normal text.bg
+}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!50!black!30
+}
+\setbeamercolor{title separator}{
+  fg=jlabRedBar,
+  bg=jlabRedBar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+\newcommand{\jlab@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=
+  }
+  \setbeamercolor{block body}{
+    bg=
+  }
+}
+\newcommand{\jlab@block@fill}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.bg!80!fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!50!normal text.bg
+  }
+}
+\setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    bg=block title.bg,
+    fg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+    use={block title, example text},
+    bg=block title.bg,
+    fg=example text.fg
+}
+\setbeamercolor{title page logo box}{%
+    fg=normal text.fg,
+    bg=normal text.bg
+}
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+\setbeamercolor{footnote}{fg=normal text.fg!90}
+\setbeamercolor{footnote mark}{fg=.}
+\setbeamercolor{bibliography entry author}{fg=, bg=}
+\setbeamercolor{bibliography entry title}{fg=, bg=}
+\setbeamercolor{bibliography entry location}{fg=, bg=}
+\setbeamercolor{bibliography entry note}{fg=, bg=}
+\jlab@color@setdefaults
+\ProcessPgfPackageOptions{/jlab/color}
+\mode<all>
+\endinput
+%%
+%% End of file `beamercolorthemejlab.sty'.
